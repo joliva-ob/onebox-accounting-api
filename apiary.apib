@@ -16,72 +16,70 @@ To do so, we have used a **API Blueprint** standard, **apiary** as an online edi
 ## Provider vs Client relationship management [/providers/{providerId}/clients/{clientId}]
 
 This let you manage a complete CRUD over the relations between providers and clients.
-Basically this creates a new relation between a given provider and client with an empty debit and credit amounts. 
-The default status will be 'true'. 
+Basically this creates a new relation between a given provider and client with an empty debit and credit amounts.
+The default status will be 'true'.
 If realtion already exists the status will turn into 'true'.
 Delete the link by changing the status into false.
 
 ### Provider-client list all relations [GET]
 
 + Parameters
-
-    + providerId (required, number, 65) ... Filter by the given provider.
+    + providerId (required, number) ... Filter by the given provider.
 
 
 + Response 200 (application/json)
 
         [
             {
-                "idProvider": 65, 
+                "idProvider": 65,
                 "idClient": 11,
                 "debitAmount": 111100,
-                "creditAmount": 1050, 
-                “totalAmount” : 112150, 
-                "currencyCode": "EUR", 
-                “active”: true 
+                "creditAmount": 1050,
+                “totalAmount” : 112150,
+                "currencyCode": "EUR",
+                “active”: true
             },
             {
-                "idProvider": 65, 
+                "idProvider": 65,
                 "idClient": 12,
                 "debitAmount": 111100,
-                "creditAmount": 1050, 
-                “totalAmount” : 112150, 
-                "currencyCode": "EUR", 
-                “active”: false 
+                "creditAmount": 1050,
+                “totalAmount” : 112150,
+                "currencyCode": "EUR",
+                “active”: false
             }
         ]
 
 ### Provider-client creation or modification a relationship [PUT]
 
 + Parameters
+    + providerId (required, number) ... Filter by the given provider.
+    + clientId (required, number) ... Filter by the given client.
 
-    + providerId (required, number, 65) ... Filter by the given provider.
-    + clientId (required, number, 1) ... Filter by the given client.
-    
 + Request
 
       + Body
 
             {
-                "idProvider": 65, 
+                "idProvider": 65,
                 "idClient": 11,
                 "debitAmount": 111100,
-                "creditAmount": 1050, 
-                “totalAmount” : 112150, 
-                "currencyCode": "EUR", 
-                “active”: true 
+                "creditAmount": 1050,
+                “totalAmount” : 112150,
+                "currencyCode": "EUR",
+                “active”: true
             }
 
 + Response 200 (application/json)
 
         {
-            "idProvider": 65, 
+            "idProvider": 65,
             "idClient": 11,
             "debitAmount": 111100,
-            "creditAmount": 1050, 
-            “totalAmount” : 112150, 
-            "currencyCode": "EUR", 
-            “active”: true 
+            "creditAmount": 1050,
+            “totalAmount” : 112150,
+            "currencyCode": "EUR",
+            “active”: true
         }
 
 + Response 400 (application/json)
@@ -90,45 +88,44 @@ Delete the link by changing the status into false.
           "error": "Bad request",
           "error_description": "There was a syntax error, check your params request and try it again."
         }
-        
+
 ### Provider-client delete relationship [DELETE]
 
 + Parameters
-
-    + providerId (required, number, 65) ... Filter by the given provider.
-    + clientId (required, number, 1) ... Filter by the given client.
+    + providerId (required, number) ... Filter by the given provider.
+    + clientId (required, number) ... Filter by the given client.
 
 + Response 200 (application/json)
 
         {
-            "idProvider": 65, 
+            "idProvider": 65,
             "idClient": 11,
             "debitAmount": 111100,
-            "creditAmount": 1050, 
-            “totalAmount” : 112150, 
-            "currencyCode": "EUR", 
-            “active”: false 
+            "creditAmount": 1050,
+            “totalAmount” : 112150,
+            "currencyCode": "EUR",
+            “active”: false
         }
 
 + Response 400 (application/json)
 
         {
           "error": "Bad request",
-          "error_descript
-        }  
+          "error_description": "There was a syntax error, check your params request and try it again."
+        }
 
 ## Provider vs Channel relationship management [/providers/{providerId}/channels/{channelId}]
 
 This let you manage a complete CRUD over the relations between providers and onsale channels.
-Basically this creates a new relation between a given provider and an onsale channel with an empty debit and credit amounts. 
-The default status will be 'true'. 
+Basically this creates a new relation between a given provider and an onsale channel with an empty debit and credit amounts.
+The default status will be 'true'.
 If realtion already exists the status will turn into 'true'.
 Delete the link by changing the status into false.
 
 ### List all provider-channel relations [GET]
 
 + Parameters
-    + providerId (required, number, 65) ... Filter by the given provider.
+    + providerId (required, number) ... Filter by the given provider.
 
 
 + Response 200 (application/json)
@@ -139,7 +136,7 @@ Delete the link by changing the status into false.
                 "providerId":  9,
                 "channelId":  65,
                 "active":  true,
-                "merchantCode": "000000009   00000006  5", 
+                "merchantCode": "000000009   00000006  5",
                 "secretKey": "XXXXXXX"
             },
             {
@@ -147,7 +144,7 @@ Delete the link by changing the status into false.
                 "providerId":  9,
                 "channelId":  66,
                 "active":  true,
-                "merchantCode": "000000009   00000006  5", 
+                "merchantCode": "000000009   00000006  5",
                 "secretKey": "XXXXXXX"
             }
         ]
@@ -155,10 +152,9 @@ Delete the link by changing the status into false.
 ### Provider-channel relation creation or modification [PUT]
 
 + Parameters
+    + providerId (required, number) ... Filter by the given provider.
+    + channelId (required, number) ... Filter by the given channel.
 
-    + providerId (required, number, 65) ... Filter by the given provider.
-    + channelId (required, number, 1) ... Filter by the given channel.
-    
 + Request
 
       + Body
@@ -168,7 +164,7 @@ Delete the link by changing the status into false.
                 "providerId":  9,
                 "channelId":  66,
                 "active":  true,
-                "merchantCode": "000000009   00000006  5", 
+                "merchantCode": "000000009   00000006  5",
                 "secretKey": "XXXXXXX"
             }
 
@@ -179,7 +175,7 @@ Delete the link by changing the status into false.
                 "providerId":  9,
                 "channelId":  66,
                 "active":  true,
-                "merchantCode": "000000009   00000006  5", 
+                "merchantCode": "000000009   00000006  5",
                 "secretKey": "XXXXXXX"
             }
 
@@ -193,9 +189,8 @@ Delete the link by changing the status into false.
 ### Provider-channel delete relationship [DELETE]
 
 + Parameters
-
-    + providerId (required, number, 65) ... Filter by the given provider.
-    + channelId (required, number, 1) ... Filter by the given client.
+    + providerId (required, number) ... Filter by the given provider.
+    + channelId (required, number) ... Filter by the given client.
 
 + Response 200 (application/json)
 
@@ -204,7 +199,7 @@ Delete the link by changing the status into false.
                 "providerId":  9,
                 "channelId":  66,
                 "active":  false,
-                "merchantCode": "000000009   00000006  5", 
+                "merchantCode": "000000009   00000006  5",
                 "secretKey": "XXXXXXX"
         }
 
@@ -212,21 +207,20 @@ Delete the link by changing the status into false.
 
         {
           "error": "Bad request",
-          "error_descript
-        }  
+          "error_description": "There was a syntax error, check your params request and try it again."
+        }
 
-## Accounting payment [/accounting/payment?{providerId,channelId,clientId,amount,currencyCode}]
+## Accounting Payment [/accounting/payment?{providerId,channelId,clientId,amount,currencyCode,locator,username}]
 
 Validate if the operation can be performed and will process it.
 
-### Accounting payment [POST]
+### Accounting Payment [POST]
 
 + Parameters
-
-    + providerId (required, number, 65) ... Filter by the given provider.
-    + channelId (required, number, 1) ... Filter by the given channel.
-    + clientId (required, number, 11) ... Filter by the given client.
-    + amount (required, number, 165.32) ... Total amount to be substracted from accounting
+    + providerId (required, number) ... Filter by the given provider.
+    + channelId (required, number) ... Filter by the given channel.
+    + clientId (required, number) ... Filter by the given client.
+    + amount (required, number) ... Total amount to be substracted from accounting
     + currencyCode (required,  enum[string])
 
         Available currency choices are:
@@ -235,9 +229,9 @@ Validate if the operation can be performed and will process it.
             + `EUR` - Euro
             + `USD` - US dollar
             + `GBP` - Great Britain Pound
-    
-    + locator (required, string, 'SDFERX343' ) ... Purchase identifier
-    + username (required, string, 'Hello@ob.com') ... Client username indentifier
+
+    + locator (required, string) ... Purchase identifier
+    + username (required, string) ... Client username indentifier
 
 + Response 200 (application/json)
 
@@ -257,7 +251,103 @@ Validate if the operation can be performed and will process it.
         }
 
 + Response 500 (application/json)
-        
+
+        {
+          "status": false,
+          "movementId": null,
+          "statusCode": "400G0001",
+          "statusDescription": "clientId cannot be null or less than 0",
+          "data": {}
+        }
+
+## Accounting Refund [/accounting/refund?{providerId,channelId,clientId,amount,currencyCode,locator,username}]
+
+Validate if the operation can be performed and will proceed to return the money back.
+
+### Accounting Refund [POST]
+
++ Parameters
+    + providerId (required, number) ... Filter by the given provider.
+    + channelId (required, number) ... Filter by the given channel.
+    + clientId (required, number) ... Filter by the given client.
+    + amount (required, number) ... Total amount to be substracted from accounting
+    + currencyCode (required,  enum[string])
+        Available currency choices are:
+        + Members
+            + `EUR` - Euro
+            + `USD` - US dollar
+            + `GBP` - Great Britain Pound
+
+    + locator (required, string) ... Purchase identifier
+    + username (required, string) ... Client username indentifier
+
++ Response 200 (application/json)
+
+        {
+          "status": true,
+          "movementId": "9_4_1c09_1472730770333",
+          "statusCode": null,
+          "statusDescription": null,
+          "data": {}
+        }
+
++ Response 400 (application/json)
+
+        {
+          "error": "Bad request",
+          "error_description": "There was a syntax error, check your params request and try it again."
+        }
+
++ Response 500 (application/json)
+
+        {
+          "status": false,
+          "movementId": null,
+          "statusCode": "400G0001",
+          "statusDescription": "clientId cannot be null or less than 0",
+          "data": {}
+        }
+
+## Accounting AddCreditAmount [/accounting/AddCreditAmount?{providerId,channelId,clientId,amount,currencyCode,username,password}]
+
+Validate if the operation can be performed and will proceed to add the money to the debit account.
+
+### Accounting AddCreditAmount [POST]
+
++ Parameters
+    + providerId (required, number) ... Filter by the given provider.
+    + channelId (required, number) ... Filter by the given channel.
+    + clientId (required, number) ... Filter by the given client.
+    + amount (required, number) ... Total amount to be substracted from accounting
+    + currencyCode (required,  enum[string])
+        Available currency choices are:
+        + Members
+            + `EUR` - Euro
+            + `USD` - US dollar
+            + `GBP` - Great Britain Pound
+
+    + username (required, string) ... Client username indentifier
+    + password (required, string) ... Client username password
+
++ Response 200 (application/json)
+
+        {
+          "status": true,
+          "movementId": "9_4_1c09_1472730770333",
+          "statusCode": null,
+          "statusDescription": null,
+          "data": {}
+        }
+
++ Response 400 (application/json)
+
+        {
+          "error": "Bad request",
+          "error_description": "There was a syntax error, check your params request and try it again."
+        }
+
++ Response 500 (application/json)
+
         {
           "status": false,
           "movementId": null,
