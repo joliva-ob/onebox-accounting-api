@@ -15,7 +15,11 @@ To do so, we have used a **API Blueprint** standard, **apiary** as an online edi
 
 ## Provider vs Client relationship management [/providers/{providerId}/clients/{clientId}]
 
-This let you manage a complete CRUD over the relations between providers and clients
+This let you manage a complete CRUD over the relations between providers and clients.
+Basically this creates a new relation between a given provider and client with an empty debit and credit amounts. 
+The default status will be 'true'. 
+If realtion already exists the status will turn into 'true'.
+Delete the link by changing the status into false.
 
 ### Provider-client list all relations [GET]
 
@@ -48,10 +52,6 @@ This let you manage a complete CRUD over the relations between providers and cli
         ]
 
 ### Provider-client creation or modification a relationship [PUT]
-
-Basically this creates a new relation between a given provider and client with an empty debit and credit amounts. 
-The default status will be 'true'. 
-If realtion already exists the status will turn into 'true'.
 
 + Parameters
 
@@ -93,8 +93,6 @@ If realtion already exists the status will turn into 'true'.
         
 ### Provider-client delete relationship [DELETE]
 
-Delete the link by changing the status into false.
-
 + Parameters
 
     + providerId (required, number, 65) ... Filter by the given provider.
@@ -121,7 +119,11 @@ Delete the link by changing the status into false.
 
 ## Provider vs Channel relationship management [/providers/{providerId}/channels/{channelId}]
 
-This let you manage a complete CRUD over the relations between providers and onsale channels
+This let you manage a complete CRUD over the relations between providers and onsale channels.
+Basically this creates a new relation between a given provider and an onsale channel with an empty debit and credit amounts. 
+The default status will be 'true'. 
+If realtion already exists the status will turn into 'true'.
+Delete the link by changing the status into false.
 
 ### List all provider-channel relations [GET]
 
@@ -151,10 +153,6 @@ This let you manage a complete CRUD over the relations between providers and ons
         ]
 
 ### Provider-channel relation creation or modification [PUT]
-
-Basically this creates a new relation between a given provider and an onsale channel with an empty debit and credit amounts. 
-The default status will be 'true'. 
-If realtion already exists the status will turn into 'true'.
 
 + Parameters
 
@@ -193,8 +191,6 @@ If realtion already exists the status will turn into 'true'.
         }
 
 ### Provider-channel delete relationship [DELETE]
-
-Delete the link by changing the status into false.
 
 + Parameters
 
