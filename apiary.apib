@@ -310,7 +310,7 @@ Validate if the operation can be performed and will proceed to return the money 
 
 ## Accounting AddCreditAmount [/accounting/AddCreditAmount?{providerId,channelId,clientId,amount,currencyCode,username,password}]
 
-Validate if the operation can be performed and will proceed to add the money to the debit account.
+Validate if the operation can be performed and will proceed to add the money to the credit account.
 
 ### Accounting AddCreditAmount [POST]
 
@@ -338,6 +338,197 @@ Validate if the operation can be performed and will proceed to add the money to 
           "statusDescription": null,
           "data": {}
         }
+
++ Response 400 (application/json)
+
+        {
+          "error": "Bad request",
+          "error_description": "There was a syntax error, check your params request and try it again."
+        }
+
++ Response 500 (application/json)
+
+        {
+          "status": false,
+          "movementId": null,
+          "statusCode": "400G0001",
+          "statusDescription": "clientId cannot be null or less than 0",
+          "data": {}
+        }
+
+## Accounting AddDebitAmount [/accounting/AddDebitAmount?{providerId,channelId,clientId,amount,currencyCode,transactionType,transactionId,username,password}]
+
+Validate if the operation can be performed and will proceed to add the money to the debit account.
+
+### Accounting AddDebitAmount [POST]
+
++ Parameters
+    + providerId (required, number) ... Filter by the given provider.
+    + channelId (required, number) ... Filter by the given channel.
+    + clientId (required, number) ... Filter by the given client.
+    + amount (required, number) ... Total amount to be substracted from accounting
+    + currencyCode (required,  enum[string])
+        Available currency choices are:
+        + Members
+            + `EUR` - Euro
+            + `USD` - US dollar
+            + `GBP` - Great Britain Pound
+    + transactionType (required,  enum[string])
+        Available currency choices are:
+        + Members
+            + `CHECK` - Check
+            + `TRANS` - Online banking transference
+            + `CASH` - Cash
+    + transactionId (required, string) ... Transaction identifier.
+    + username (required, string) ... Client username indentifier
+    + password (required, string) ... Client username password
+
++ Response 200 (application/json)
+
+        {
+          "status": true,
+          "movementId": "9_4_1c09_1472730770333",
+          "statusCode": null,
+          "statusDescription": null,
+          "data": {}
+        }
+
++ Response 400 (application/json)
+
+        {
+          "error": "Bad request",
+          "error_description": "There was a syntax error, check your params request and try it again."
+        }
+
++ Response 500 (application/json)
+
+        {
+          "status": false,
+          "movementId": null,
+          "statusCode": "400G0001",
+          "statusDescription": "clientId cannot be null or less than 0",
+          "data": {}
+        }
+
+## Accounting ModifyAmount [/accounting/ModifyAmount?{providerId,channelId,clientId,amount,currencyCode,accountType,comment,username,password}]
+
+Ammend the total balance amount from the debit or credit account.
+
+### Accounting ModifyAmount [POST]
+
++ Parameters
+    + providerId (required, number) ... Filter by the given provider.
+    + channelId (required, number) ... Filter by the given channel.
+    + clientId (required, number) ... Filter by the given client.
+    + amount (required, number) ... Total amount to be substracted from accounting
+    + currencyCode (required,  enum[string])
+        Available currency choices are:
+        + Members
+            + `EUR` - Euro
+            + `USD` - US dollar
+            + `GBP` - Great Britain Pound
+    + accountType (required,  enum[string])
+        Available currency choices are:
+        + Members
+            + `DEBIT` - Debit
+            + `CREDIT` - Credit
+    + comment (required, string) ... Notes
+    + username (required, string) ... Client username indentifier
+    + password (required, string) ... Client username password
+
++ Response 200 (application/json)
+
+        {
+          "status": true,
+          "movementId": "9_4_1c09_1472730770333",
+          "statusCode": null,
+          "statusDescription": null,
+          "data": {}
+        }
+
++ Response 400 (application/json)
+
+        {
+          "error": "Bad request",
+          "error_description": "There was a syntax error, check your params request and try it again."
+        }
+
++ Response 500 (application/json)
+
+        {
+          "status": false,
+          "movementId": null,
+          "statusCode": "400G0001",
+          "statusDescription": "clientId cannot be null or less than 0",
+          "data": {}
+        }
+
+## Accounting CheckBalance [/accounting/CheckBalance?{providerId,channelId,clientId,username,password}]
+
+Get the balance from a given account (debit, credit and total available amount)
+
+### Accounting CheckBalance [POST]
+
++ Parameters
+    + providerId (required, number) ... Filter by the given provider.
+    + channelId (required, number) ... Filter by the given channel.
+    + clientId (required, number) ... Filter by the given client.
+    + username (required, string) ... Client username indentifier
+    + password (required, string) ... Client username password
+
++ Response 200 (application/json)
+
+        {
+          "status": true,
+          "movementId": "9_4_1c09_1472730770333",
+          "statusCode": null,
+          "statusDescription": null,
+          "data": {}
+        }
+
++ Response 400 (application/json)
+
+        {
+          "error": "Bad request",
+          "error_description": "There was a syntax error, check your params request and try it again."
+        }
+
++ Response 500 (application/json)
+
+        {
+          "status": false,
+          "movementId": null,
+          "statusCode": "400G0001",
+          "statusDescription": "clientId cannot be null or less than 0",
+          "data": {}
+        }
+
+## Accounting Auditory [/audit/providers/{providerId}/clients/{clientId}]
+
+Retrive the last movements from the given provider id.
+
+### Accounting Auditory [GET]
+
++ Parameters
+    + providerId (required, number) ... Filter by the given provider.
+    + clientId (required, number) ... Filter by the given client.
+
++ Response 200 (application/json)
+
+        [
+          {
+            "movementId": "9_4_1c09_1472730770333",
+            "amount": 145.43,
+            "accountType": "DEBIT",
+            "action" = "ADD"
+          },
+          {
+            "movementId": "9_4_1c09_1472730770334",
+            "amount": 145.43,
+            "accountType": "DEBIT",
+            "action" = "SUBSTRACT"
+          }
+        ]
 
 + Response 400 (application/json)
 
