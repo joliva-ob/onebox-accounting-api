@@ -13,7 +13,7 @@ To do so, we have used a **API Blueprint** standard, **apiary** as an online edi
 + [github](https://github.com/joliva-ob/onebox-accounting-api)
 + [onebox-developer](http://developer.oneboxtickets.com/accounting-api/)
 
-## Provider vs Client relationship management [/providers/{providerId}/clients/{clientId}]
+## Provider vs Client relationship management [/accounting-api/1.0/providers/{providerId}/clients/{clientId}]
 
 This let you manage a complete CRUD over the relations between providers and clients.
 Basically this creates a new relation between a given provider and client with an empty debit and credit amounts.
@@ -114,7 +114,7 @@ Delete the link by changing the status into false.
           "error_description": "There was a syntax error, check your params request and try it again."
         }
 
-## Provider vs Channel relationship management [/providers/{providerId}/channels/{channelId}]
+## Provider vs Channel relationship management [/accounting-api/1.0/providers/{providerId}/channels/{channelId}]
 
 This let you manage a complete CRUD over the relations between providers and onsale channels.
 Basically this creates a new relation between a given provider and an onsale channel with an empty debit and credit amounts.
@@ -210,7 +210,7 @@ Delete the link by changing the status into false.
           "error_description": "There was a syntax error, check your params request and try it again."
         }
 
-## Accounting Payment [/accounting/payment?{providerId,channelId,clientId,amount,currencyCode,locator,username}]
+## Accounting Payment [/accounting-api/1.0/accounting/payment?{providerId,channelId,clientId,amount,currencyCode,locator,username}]
 
 Validate if the operation can be performed and will process it.
 
@@ -260,7 +260,7 @@ Validate if the operation can be performed and will process it.
           "data": {}
         }
 
-## Accounting Refund [/accounting/refund?{providerId,channelId,clientId,amount,currencyCode,locator,username}]
+## Accounting Refund [/accounting-api/1.0/accounting/refund?{providerId,channelId,clientId,amount,currencyCode,locator,username}]
 
 Validate if the operation can be performed and will proceed to return the money back.
 
@@ -308,7 +308,7 @@ Validate if the operation can be performed and will proceed to return the money 
           "data": {}
         }
 
-## Accounting AddCreditAmount [/accounting/AddCreditAmount?{providerId,channelId,clientId,amount,currencyCode,username,password}]
+## Accounting AddCreditAmount [/accounting-api/1.0/accounting/AddCreditAmount?{providerId,channelId,clientId,amount,currencyCode,username,password}]
 
 Validate if the operation can be performed and will proceed to add the money to the credit account.
 
@@ -356,7 +356,7 @@ Validate if the operation can be performed and will proceed to add the money to 
           "data": {}
         }
 
-## Accounting AddDebitAmount [/accounting/AddDebitAmount?{providerId,channelId,clientId,amount,currencyCode,transactionType,transactionId,username,password}]
+## Accounting AddDebitAmount [/accounting-api/1.0/accounting/AddDebitAmount?{providerId,channelId,clientId,amount,currencyCode,transactionType,transactionId,username,password}]
 
 Validate if the operation can be performed and will proceed to add the money to the debit account.
 
@@ -410,7 +410,7 @@ Validate if the operation can be performed and will proceed to add the money to 
           "data": {}
         }
 
-## Accounting ModifyAmount [/accounting/ModifyAmount?{providerId,channelId,clientId,amount,currencyCode,accountType,comment,username,password}]
+## Accounting ModifyAmount [/accounting-api/1.0/accounting/ModifyAmount?{providerId,channelId,clientId,amount,currencyCode,accountType,comment,username,password}]
 
 Ammend the total balance amount from the debit or credit account.
 
@@ -463,7 +463,7 @@ Ammend the total balance amount from the debit or credit account.
           "data": {}
         }
 
-## Accounting CheckBalance [/accounting/CheckBalance?{providerId,channelId,clientId,username,password}]
+## Accounting CheckBalance [/accounting-api/1.0/accounting/CheckBalance?{providerId,channelId,clientId,username,password}]
 
 Get the balance from a given account (debit, credit and total available amount)
 
@@ -503,9 +503,52 @@ Get the balance from a given account (debit, credit and total available amount)
           "data": {}
         }
 
-## Accounting Auditory [/audit/providers/{providerId}/clients/{clientId}]
+## Accounting Auditory [/accounting-api/1.0/audit/{providerId}]
 
 Retrive the last movements from the given provider id.
+
+### Accounting Auditory [GET]
+
++ Parameters
+    + providerId (optional, number) ... Filter by the given provider.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "movementId": "9_4_1c09_1472730770333",
+                "amount": 145.43,
+                "accountType": "DEBIT",
+                "action" = "ADD"
+            },
+            {
+                "movementId": "9_4_1c09_1472730770334",
+                "amount": 145.43,
+                "accountType": "CREDIT",
+                "action" = "SUBSTRACT"
+            }
+        ]
+
++ Response 400 (application/json)
+
+        {
+          "error": "Bad request",
+          "error_description": "There was a syntax error, check your params request and try it again."
+        }
+
++ Response 500 (application/json)
+
+        {
+          "status": false,
+          "movementId": null,
+          "statusCode": "400G0001",
+          "statusDescription": "clientId cannot be null or less than 0",
+          "data": {}
+        }
+
+## Accounting Provider-Client Auditory [/accounting-api/1.0/audit/providers/{providerId}/clients/{clientId}]
+
+Retrive the last movements from the given provider/client Id.
 
 ### Accounting Auditory [GET]
 
@@ -515,20 +558,55 @@ Retrive the last movements from the given provider id.
 
 + Response 200 (application/json)
 
-        [
-          {
-            "movementId": "9_4_1c09_1472730770333",
-            "amount": 145.43,
-            "accountType": "DEBIT",
-            "action" = "ADD"
-          },
-          {
-            "movementId": "9_4_1c09_1472730770334",
-            "amount": 145.43,
-            "accountType": "DEBIT",
-            "action" = "SUBSTRACT"
-          }
-        ]
+            [
+                {
+                    "movementId": "9_4_1c09_1472730770333",
+                    "amount": 145.43,
+                    "accountType": "DEBIT",
+                    "action" = "ADD"
+                },
+                {
+                    "movementId": "9_4_1c09_1472730770334",
+                    "amount": 145.43,
+                    "accountType": "CREDIT",
+                    "action" = "SUBSTRACT"
+                }
+            ]
+
++ Response 400 (application/json)
+
+        {
+          "error": "Bad request",
+          "error_description": "There was a syntax error, check your params request and try it again."
+        }
+
++ Response 500 (application/json)
+
+        {
+          "status": false,
+          "movementId": null,
+          "statusCode": "400G0001",
+          "statusDescription": "clientId cannot be null or less than 0",
+          "data": {}
+        }
+
+## Accounting Movement Auditory [/accounting-api/1.0/audit/movements/{movementId}]
+
+Retrive the movement details from the given movement id.
+
+### Accounting Auditory [GET]
+
++ Parameters
+    + movementId (required, number) ... Filter by the given movement Id.
+
++ Response 200 (application/json)
+
+            {
+                "movementId": "9_4_1c09_1472730770333",
+                "amount": 145.43,
+                "accountType": "DEBIT",
+                "action" = "ADD"
+            }
 
 + Response 400 (application/json)
 
