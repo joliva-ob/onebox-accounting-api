@@ -498,24 +498,54 @@ Retrive the last auditory movements from the given provider id.
     + numberOfResults (optional, number, `50`) ... returns the given number of results.
 
 + Response 200 (application/json)
-        
+
         {
-            "transactionAudits":
-                [
-                    {
-                        "movementId": "9_4_1c09_1472730770333",
-                        "amount": 145.43,
-                        "accountType": "DEBIT",
-                        "action" = "ADD"
-                    },
-                    {
-                        "movementId": "9_4_1c09_1472730770334",
-                        "amount": 145.43,
-                        "accountType": "CREDIT",
-                        "action" = "SUBSTRACT"
-                    }
-                ]
-            "totalElements":18
+            "transactionAudits": [
+                {
+                    "status": true,
+                    "providerId": 58,
+                    "amount": 50000,
+                    "currencyCode": "EUR",
+                    "username": "all@onebox.es",
+                    "clientId": 8,
+                    "movementType": "MODIFY_AMOUNT",
+                    "transactionType": null,
+                    "transactionId": null,
+                    "comment": "",
+                    "channelId": null,
+                    "locator": null,
+                    "oldBalance": 0,
+                    "newBalance": 40000,
+                    "oldUsedCredit": 10000,
+                    "newUsedCredit": 0,
+                    "oldMaxCredit": 10000,
+                    "newMaxCredit": 10000,
+                    "movementId": "58_8_f945_1475741767286",
+                    "timestamp": 1475741767331
+                },
+                {
+                    "status": true,
+                    "providerId": 58,
+                    "amount": -40000,
+                    "currencyCode": "EUR",
+                    "username": "all@onebox.es",
+                    "clientId": 8,
+                    "movementType": "MODIFY_AMOUNT",
+                    "transactionType": null,
+                    "transactionId": null,
+                    "comment": "",
+                    "channelId": null,
+                    "locator": null,
+                    "oldBalance": 30000,
+                    "newBalance": 0,
+                    "oldUsedCredit": 0,
+                    "newUsedCredit": 10000,
+                    "oldMaxCredit": 10000,
+                    "newMaxCredit": 10000,
+                    "movementId": "58_8_99fb_1475741736650",
+                    "timestamp": 1475741736727
+                }],
+            "totalElements": 37
         }
 
 + Response 400 (application/json)
