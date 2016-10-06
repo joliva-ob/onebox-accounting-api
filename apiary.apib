@@ -29,26 +29,54 @@ Delete the link by changing the status into false.
 
 + Response 200 (application/json)
 
-        [
-            {
-                "idProvider": 65,
-                "idClient": 11,
-                "debitAmount": 111100,
-                "creditAmount": 1050,
-                “totalAmount” : 112150,
-                "currencyCode": "EUR",
-                “active”: true
-            },
-            {
-                "idProvider": 65,
-                "idClient": 12,
-                "debitAmount": 111100,
-                "creditAmount": 1050,
-                “totalAmount” : 112150,
-                "currencyCode": "EUR",
-                “active”: false
-            }
-        ]
+        {
+            "transactionAudits": [
+                {
+                    "status": true,
+                    "providerId": 58,
+                    "amount": 50000,
+                    "currencyCode": "EUR",
+                    "username": "all@onebox.es",
+                    "clientId": 8,
+                    "movementType": "MODIFY_AMOUNT",
+                    "transactionType": null,
+                    "transactionId": null,
+                    "comment": "",
+                    "channelId": null,
+                    "locator": null,
+                    "oldBalance": 0,
+                    "newBalance": 40000,
+                    "oldUsedCredit": 10000,
+                    "newUsedCredit": 0,
+                    "oldMaxCredit": 10000,
+                    "newMaxCredit": 10000,
+                    "movementId": "58_8_f945_1475741767286",
+                    "timestamp": 1475741767331
+                },
+                {
+                    "status": true,
+                    "providerId": 58,
+                    "amount": -40000,
+                    "currencyCode": "EUR",
+                    "username": "all@onebox.es",
+                    "clientId": 8,
+                    "movementType": "MODIFY_AMOUNT",
+                    "transactionType": null,
+                    "transactionId": null,
+                    "comment": "",
+                    "channelId": null,
+                    "locator": null,
+                    "oldBalance": 30000,
+                    "newBalance": 0,
+                    "oldUsedCredit": 0,
+                    "newUsedCredit": 10000,
+                    "oldMaxCredit": 10000,
+                    "newMaxCredit": 10000,
+                    "movementId": "58_8_99fb_1475741736650",
+                    "timestamp": 1475741736727
+                }],
+            "totalElements": 37
+        }
 
 ### Provider-client creation or modification a relationship [PUT]
 
@@ -310,7 +338,7 @@ Validate if the operation can be performed and will proceed to return the money 
 
 Validate if the operation can be performed and will proceed to add the money to the credit account.
 
-### Accounting Deposit [POST]
+a### Accounting Deposit [POST]
 
 + Parameters
     + providerId (required, number) ... Filter by the given provider.
