@@ -503,110 +503,45 @@ Get the balance from a given account (debit, credit and total available amount)
           "data": {}
         }
 
-## Accounting Auditory [/accounting-api/1.0/audit/{providerId}]
+## Accounting Auditory [/accounting-api/1.0/auditories?{dateFrom},{dateTo},{providerId},{clientId},{username},{movementType},{transactionType},{locator},{freeText},{fromElement},{numberOfResults}]
 
-Retrive the last movements from the given provider id.
+Retrive the last auditory movements from the given provider id.
 
 ### Accounting Auditory [GET]
 
 + Parameters
+    + dateFrom (optional, date) ... Filter by the given from date.
+    + dateTo (optional, number) ... Filter by the given to date.
     + providerId (optional, number) ... Filter by the given provider.
+    + clientId (optional, number) ... Filter by the given clientId.
+    + username (optional, string) ... Filter by the given username.
+    + movementType (optional, enum) ... Filter by the given movementType (ADD_AMOUNT(1), MODIFY_AMOUNT(2), PAYMENT(3), REFUND(4), CHANGE_MAX_CREDIT(5)).
+    + transactionType (optional, enum) ... Filter by the given transactionType (CHECK(1), CASH(2), WIRE(3)).
+    + locator (optional, string) ... Filter by the given locator.
+    + freeText (optional, string) ... Filter by the given text.
+    + fromElement (optional, number, `0`) ... starts the result from the given index.
+    + numberOfResults (optional, number, `50`) ... returns the given number of results.
 
 + Response 200 (application/json)
-
-        [
-            {
-                "movementId": "9_4_1c09_1472730770333",
-                "amount": 145.43,
-                "accountType": "DEBIT",
-                "action" = "ADD"
-            },
-            {
-                "movementId": "9_4_1c09_1472730770334",
-                "amount": 145.43,
-                "accountType": "CREDIT",
-                "action" = "SUBSTRACT"
-            }
-        ]
-
-+ Response 400 (application/json)
-
+        
         {
-          "error": "Bad request",
-          "error_description": "There was a syntax error, check your params request and try it again."
+            "transactionAudits":
+                [
+                    {
+                        "movementId": "9_4_1c09_1472730770333",
+                        "amount": 145.43,
+                        "accountType": "DEBIT",
+                        "action" = "ADD"
+                    },
+                    {
+                        "movementId": "9_4_1c09_1472730770334",
+                        "amount": 145.43,
+                        "accountType": "CREDIT",
+                        "action" = "SUBSTRACT"
+                    }
+                ]
+            "totalElements":18
         }
-
-+ Response 500 (application/json)
-
-        {
-          "status": false,
-          "movementId": null,
-          "statusCode": "400G0001",
-          "statusDescription": "clientId cannot be null or less than 0",
-          "data": {}
-        }
-
-## Accounting Provider-Client Auditory [/accounting-api/1.0/audit/providers/{providerId}/clients/{clientId}]
-
-Retrive the last movements from the given provider/client Id.
-
-### Accounting Auditory [GET]
-
-+ Parameters
-    + providerId (required, number) ... Filter by the given provider.
-    + clientId (required, number) ... Filter by the given client.
-
-+ Response 200 (application/json)
-
-            [
-                {
-                    "movementId": "9_4_1c09_1472730770333",
-                    "amount": 145.43,
-                    "accountType": "DEBIT",
-                    "action" = "ADD"
-                },
-                {
-                    "movementId": "9_4_1c09_1472730770334",
-                    "amount": 145.43,
-                    "accountType": "CREDIT",
-                    "action" = "SUBSTRACT"
-                }
-            ]
-
-+ Response 400 (application/json)
-
-        {
-          "error": "Bad request",
-          "error_description": "There was a syntax error, check your params request and try it again."
-        }
-
-+ Response 500 (application/json)
-
-        {
-          "status": false,
-          "movementId": null,
-          "statusCode": "400G0001",
-          "statusDescription": "clientId cannot be null or less than 0",
-          "data": {}
-        }
-
-## Accounting Movement Auditory [/accounting-api/1.0/audit/movements/{movementId}]
-
-Retrive the movement details from the given movement id.
-
-### Accounting Auditory [GET]
-
-+ Parameters
-    + movementId (required, number) ... Filter by the given movement Id.
-
-+ Response 200 (application/json)
-
-            {
-                "movementId": "9_4_1c09_1472730770333",
-                "amount": 145.43,
-                "accountType": "DEBIT",
-                "action" = "ADD"
-            }
 
 + Response 400 (application/json)
 
