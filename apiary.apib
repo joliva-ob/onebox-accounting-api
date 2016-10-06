@@ -210,7 +210,7 @@ Delete the link by changing the status into false.
           "error_description": "There was a syntax error, check your params request and try it again."
         }
 
-## Accounting Payment [/accounting-api/1.0/accounting/payment?{providerId,channelId,clientId,amount,currencyCode,locator,username}]
+## Accounting Payment [/accounting-api/1.0/accounting/payment?{providerId,channelId,amount,currencyCode,locator,username}]
 
 Validate if the operation can be performed and will process it.
 
@@ -219,7 +219,6 @@ Validate if the operation can be performed and will process it.
 + Parameters
     + providerId (required, number) ... Filter by the given provider.
     + channelId (required, number) ... Filter by the given channel.
-    + clientId (required, number) ... Filter by the given client.
     + amount (required, number) ... Total amount to be substracted from accounting
     + currencyCode (required,  enum[string])
 
@@ -256,11 +255,11 @@ Validate if the operation can be performed and will process it.
           "status": false,
           "movementId": null,
           "statusCode": "400G0001",
-          "statusDescription": "clientId cannot be null or less than 0",
+          "statusDescription": "providerId cannot be null or less than 0",
           "data": {}
         }
 
-## Accounting Refund [/accounting-api/1.0/accounting/refund?{providerId,channelId,clientId,amount,currencyCode,locator,username}]
+## Accounting Refund [/accounting-api/1.0/accounting/refund?{providerId,channelId,amount,currencyCode,locator,username}]
 
 Validate if the operation can be performed and will proceed to return the money back.
 
@@ -269,7 +268,6 @@ Validate if the operation can be performed and will proceed to return the money 
 + Parameters
     + providerId (required, number) ... Filter by the given provider.
     + channelId (required, number) ... Filter by the given channel.
-    + clientId (required, number) ... Filter by the given client.
     + amount (required, number) ... Total amount to be substracted from accounting
     + currencyCode (required,  enum[string])
         Available currency choices are:
@@ -308,15 +306,14 @@ Validate if the operation can be performed and will proceed to return the money 
           "data": {}
         }
 
-## Accounting AddCreditAmount [/accounting-api/1.0/accounting/AddCreditAmount?{providerId,channelId,clientId,amount,currencyCode,username,password}]
+## Accounting Deposit [/accounting-api/1.0/accounting/deposit?{providerId,clientId,amount,currencyCode,username,password}]
 
 Validate if the operation can be performed and will proceed to add the money to the credit account.
 
-### Accounting AddCreditAmount [POST]
+### Accounting Deposit [POST]
 
 + Parameters
     + providerId (required, number) ... Filter by the given provider.
-    + channelId (required, number) ... Filter by the given channel.
     + clientId (required, number) ... Filter by the given client.
     + amount (required, number) ... Total amount to be substracted from accounting
     + currencyCode (required,  enum[string])
@@ -327,7 +324,12 @@ Validate if the operation can be performed and will proceed to add the money to 
             + `GBP` - Great Britain Pound
 
     + username (required, string) ... Client username indentifier
-    + password (required, string) ... Client username password
+    + transactionType (required, enum[string])
+        Available transaction types are:
+        + Members
+            + `CHECK` - check
+            + `WIRE` - wire
+            + `CASH` - cash
 
 + Response 200 (application/json)
 
@@ -356,61 +358,7 @@ Validate if the operation can be performed and will proceed to add the money to 
           "data": {}
         }
 
-## Accounting AddDebitAmount [/accounting-api/1.0/accounting/AddDebitAmount?{providerId,channelId,clientId,amount,currencyCode,transactionType,transactionId,username,password}]
-
-Validate if the operation can be performed and will proceed to add the money to the debit account.
-
-### Accounting AddDebitAmount [POST]
-
-+ Parameters
-    + providerId (required, number) ... Filter by the given provider.
-    + channelId (required, number) ... Filter by the given channel.
-    + clientId (required, number) ... Filter by the given client.
-    + amount (required, number) ... Total amount to be substracted from accounting
-    + currencyCode (required,  enum[string])
-        Available currency choices are:
-        + Members
-            + `EUR` - Euro
-            + `USD` - US dollar
-            + `GBP` - Great Britain Pound
-    + transactionType (required,  enum[string])
-        Available currency choices are:
-        + Members
-            + `CHECK` - Check
-            + `TRANS` - Online banking transference
-            + `CASH` - Cash
-    + transactionId (required, string) ... Transaction identifier.
-    + username (required, string) ... Client username indentifier
-    + password (required, string) ... Client username password
-
-+ Response 200 (application/json)
-
-        {
-          "status": true,
-          "movementId": "9_4_1c09_1472730770333",
-          "statusCode": null,
-          "statusDescription": null,
-          "data": {}
-        }
-
-+ Response 400 (application/json)
-
-        {
-          "error": "Bad request",
-          "error_description": "There was a syntax error, check your params request and try it again."
-        }
-
-+ Response 500 (application/json)
-
-        {
-          "status": false,
-          "movementId": null,
-          "statusCode": "400G0001",
-          "statusDescription": "clientId cannot be null or less than 0",
-          "data": {}
-        }
-
-## Accounting ModifyAmount [/accounting-api/1.0/accounting/ModifyAmount?{providerId,channelId,clientId,amount,currencyCode,accountType,comment,username,password}]
+## Accounting ModifyAmount [/accounting-api/1.0/accounting/modifyAmount?{providerId,clientId,amount,currencyCode,comment,username}]
 
 Ammend the total balance amount from the debit or credit account.
 
@@ -418,7 +366,6 @@ Ammend the total balance amount from the debit or credit account.
 
 + Parameters
     + providerId (required, number) ... Filter by the given provider.
-    + channelId (required, number) ... Filter by the given channel.
     + clientId (required, number) ... Filter by the given client.
     + amount (required, number) ... Total amount to be substracted from accounting
     + currencyCode (required,  enum[string])
@@ -427,14 +374,8 @@ Ammend the total balance amount from the debit or credit account.
             + `EUR` - Euro
             + `USD` - US dollar
             + `GBP` - Great Britain Pound
-    + accountType (required,  enum[string])
-        Available currency choices are:
-        + Members
-            + `DEBIT` - Debit
-            + `CREDIT` - Credit
-    + comment (required, string) ... Notes
     + username (required, string) ... Client username indentifier
-    + password (required, string) ... Client username password
+    + comment (optional, string) ... Notes
 
 + Response 200 (application/json)
 
@@ -463,18 +404,24 @@ Ammend the total balance amount from the debit or credit account.
           "data": {}
         }
 
-## Accounting CheckBalance [/accounting-api/1.0/accounting/CheckBalance?{providerId,channelId,clientId,username,password}]
+## Accounting MaxCredit [/accounting-api/1.0/accounting/maxCredit?{providerId,clientId,amount,currencyCode,username,comment}]
 
 Get the balance from a given account (debit, credit and total available amount)
 
-### Accounting CheckBalance [POST]
+### Accounting MaxCredit [POST]
 
 + Parameters
     + providerId (required, number) ... Filter by the given provider.
-    + channelId (required, number) ... Filter by the given channel.
     + clientId (required, number) ... Filter by the given client.
+    + amount (required, number) ... Total amount to be substracted from accounting
+    + currencyCode (required,  enum[string])
+        Available currency choices are:
+        + Members
+            + `EUR` - Euro
+            + `USD` - US dollar
+            + `GBP` - Great Britain Pound
     + username (required, string) ... Client username indentifier
-    + password (required, string) ... Client username password
+    + comment (optional, string) ... Notes
 
 + Response 200 (application/json)
 
